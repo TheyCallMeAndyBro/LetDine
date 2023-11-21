@@ -1,7 +1,7 @@
 const { Restaurant, Category } = require('../../models')
 
 
-const restSevices = {
+const restServices = {
   getRestaurants: (req, cb) => {
     return Restaurant.findAll({
       include: Category,
@@ -22,4 +22,4 @@ const restSevices = {
   }
 }
 
-module.exports = restSevices
+module.exports = restServices

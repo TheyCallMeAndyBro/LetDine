@@ -1,9 +1,23 @@
 const express = require('express')
-const router  = express.Router()
-const  restController  = require('../controllers/restaurant-controllers')
+const router = express.Router()
 
-router.get('/restaurants', restController.getRestaurants)
+const userController = require('../controllers/user-controllers')
+
+const restController = require('../controllers/restaurant-controllers')
+const passport = require('../config/passport')
+const { authenticated, authenticatedAdmin } = require('../middlewares/auth')
+
+router.get('/signin', userController.getSigninPage)
+
+router.post('/signin', passport.authenticate('local', {
+  failureRedirect: '/signin',
+  failureFlash: true // 設置可以使用 flash 
+}) ,userController.postSignin)
+
+router.get('/signup', userController.getSignupPage)
+router.post('/signup', userController.postSignup)
+
+router.get('/restaurants', authenticated, restController.getRestaurants)
 router.get('/', (req, res) => res.redirect('/restaurants'))
-
 
 module.exports = router
