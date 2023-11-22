@@ -18,7 +18,7 @@ const userService = {
           password: hash
         })
       })
-      .then(newUser => cb(null, newUser))
+      .then(newUser => cb(null, { User: newUser }))
       .catch(err => cb(err))
   },
 }

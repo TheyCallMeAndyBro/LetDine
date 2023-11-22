@@ -20,5 +20,12 @@ const userController = {
       return res.redirect('/signin')
     }) 
   },
+  postlogout: (req,res,next) => {
+    req.flash('success_messages', '登出成功')
+    req.logout( err => {
+      if(err) return next(err)
+      return res.redirect('/signin')
+    })
+  },
 }
 module.exports = userController

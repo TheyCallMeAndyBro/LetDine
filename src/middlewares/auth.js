@@ -18,8 +18,19 @@ const authenticatedAdmin = (req, res, next) => {
   res.redirect('/signin')
 }
 
+const authenticatedLeader = (req, res, next) => {
+  if (ensureAuthenticated(req)) {
+    if (getUser(req).isLeader) {
+      return next()
+    }
+    res.redirect('/')
+  }
+  res.redirect('/signin')
+}
+
 
 module.exports = {
   authenticated,
-  authenticatedAdmin
+  authenticatedAdmin,
+  authenticatedLeader
 }

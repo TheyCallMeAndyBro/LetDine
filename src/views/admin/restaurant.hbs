@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>{{restaurant.name}}</h1>
+    <p>[ {{restaurant.Category.name}} ]</p>
+  </div>
+  <div class="col-md-6">
+    <img class="img-responsive center-block" src="{{restaurant.image}}"
+      style="width: 500px;height:500px; margin-bottom: 25px; transition: opacity 0.5s; opacity:0;"
+      onload="this.style.opacity=1;">
+  </div>
+  <br>
+  <div class="col-md-6">
+    <img class="img-responsive center-block" src="{{restaurant.menu}}"
+      style="width: 500px;height:500px; margin-bottom: 25px; transition: opacity 0.5s; opacity:0;"
+      onload="this.style.opacity=1;">
+  </div>
+  <div class="well">
+    <ul class="list-unstyled">
+      <li><strong>Opening Hour:</strong> {{restaurant.openingHours}}</li>
+      <li><strong>Tel:</strong> {{restaurant.tel}}</li>
+      <li><strong>Address:</strong> {{restaurant.address}}</li>
+      <li style="white-space: break-spaces;"><strong>Description:</strong><br>{{restaurant.description}}</li>
+    </ul>
+  </div>
+  <hr>
+</div>
+{{!-- "javascript:history.back()" 為直接回上一頁 --}}
+<a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>

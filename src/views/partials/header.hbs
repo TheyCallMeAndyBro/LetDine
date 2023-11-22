@@ -14,6 +14,11 @@
             <a href="/admin" class="nav-link text-warning">Admin Dashboard</a>
           </li>
           {{/if}}
+          {{#if user.isLeader}}
+          <li class="nav-item">
+            <a href="/leader" class="nav-link text-warning">Leader Dashboard</a>
+          </li>
+          {{/if}}
           <li class="nav-item d-inline-flex align-items-center">
             {{#if user}}
             <span class="text-white nav-link">Greetings, {{ user.email }}</span>{{/if}}
