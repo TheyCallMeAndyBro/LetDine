@@ -1,0 +1,62 @@
+<div class="container">
+  <h1 class="text-center">點餐</h1>
+  <div class="row">
+    <div class="col-lg-6 order-lg-1 ml-0">
+      <!-- 左邊的圖片 -->
+      <img class="img-responsive" src="{{restaurant.menu}}"
+        style="width: 600px; height: 700px; transition: opacity 0.5s; opacity: 0;" onload="this.style.opacity=1;">
+    </div>
+    <div class="col-lg-6 order-lg-2">
+      <!-- 右邊的訂購欄位 -->
+      <form action="/leader/groups/{{groupId}}/restaurants/{{restaurant.id}}/{{userId}}/food" method="post">
+        <div class="container mt-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Food</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="formBody">
+              <tr class="form-row" id="rowTemplate" style="display:none;">
+                <td><input type="text" class="form-control" name="food[]"></td>
+                <td><input type="number" class="form-control" name="price[]"></td>
+                <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-success" onclick="addRow()">Add Row</button>
+          <button type="submit" class="btn btn-primary">Create</button>
+          <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 在頁面載入時執行 addRow 函式，以預設新增一行
+    addRow()
+  })
+
+  function addRow() {
+    var formBody = document.getElementById('formBody');
+    var rowTemplate = document.getElementById('rowTemplate');
+
+    if (formBody.childElementCount < 10) {
+      var newRow = rowTemplate.cloneNode(true);
+      newRow.style.display = ''; // Show the cloned row
+      formBody.appendChild(newRow);
+    } else {
+      alert('Cannot add more than 10 rows.');
+    }
+  }
+
+  function removeRow(button) {
+    button.closest('tr').remove();
+  }
+</script>

@@ -1,0 +1,41 @@
+{{> leader-tabs route='GroupLists'}}
+
+
+<br />
+<br />
+<table class="table align-middle">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">GroupName</th>
+      <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each groups}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.name}}</td>
+
+      <td>
+        <button type="button" class="btn btn-link">
+          <a class="btn btn-link link-success" href="/admin/restaurants/{{this.id}}">
+            Show
+          </a>
+        </button>
+        <form action="/leader/grouplists/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-link link-danger"
+            onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete
+            {{!-- confirm 跳出確定或取消 回傳true/false return回傳這個值給onclick 再看是否要執行此次submit事件 --}}
+          </button>
+        </form>
+        <form action="/leader/grouplists/?_method=PATCH" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-link link-primary" onclick="return confirm(`確定完成 {{ this.name }} 嗎？`)">done
+          </button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

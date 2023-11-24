@@ -1,0 +1,25 @@
+<div class="container">
+  <h1 class="text-center">建立美食團</h1>
+  <div class="row">
+    <div class="col-lg-6 order-lg-1 ml-0">
+      <!-- 左邊的圖片 -->
+      <img class="img-responsive" src="{{restaurant.image}}"
+        style="width: 600px; height: 700px; transition: opacity 0.5s; opacity: 0;" onload="this.style.opacity=1;">
+    </div>
+    <div class="col-lg-6 order-lg-2">
+      <!-- 右邊的訂購欄位 -->
+      <form action="/leader/groups/{{groupId}}/restaurants/{{restaurant.id}}/{{userId}}/name" method="post">
+        <div class="form-row mb-3">
+          <label class="form-label" for="name">GroupName</label>
+          <input class="form-control" type="text" name="name" id="name" placeholder="Enter Group Name" required>
+        </div>
+        <div class="form-row mb-3">
+          <label class="form-label" for="note">Note</label>
+          <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
+      </form>
+    </div>
+  </div>
+</div>

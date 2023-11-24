@@ -1,9 +1,9 @@
-const { Restaurant, Category } = require('../../models')
+const { Restaurant, Category, } = require('../../models')
 
-
-const restServices = {
+const leaderServices = {
   getRestaurants: (req, cb) => {
     const categoryId = Number(req.query.categoryId) || ''
+    const userId = req.user.id
     // 變成數字是因為 id在db資料庫值為integer 然後丟到views也要為number才有辦法比較
     return Promise.all([Restaurant.findAll({
       include: Category,
@@ -11,8 +11,9 @@ const restServices = {
         ...categoryId ? { categoryId } : {}
       },
       raw: true,
-      nest: true}),
-      Category.findAll({ raw: true })
+      nest: true
+    }),
+    Category.findAll({ raw: true })
     ])
       .then(([restaurants, categories]) => {
         const data = restaurants.map(r => ({
@@ -22,7 +23,8 @@ const restServices = {
         return cb(null, {
           restaurants: data,
           categories,
-          categoryId
+          categoryId,
+          userId
         })
       })
       .catch(err => cb(err))
@@ -39,4 +41,4 @@ const restServices = {
   },
 }
 
-module.exports = restServices
+module.exports = leaderServices

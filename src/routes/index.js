@@ -5,10 +5,12 @@ const userController = require('../controllers/user-controllers')
 
 const restController = require('../controllers/restaurant-controllers')
 const passport = require('../config/passport')
-const { authenticated, authenticatedAdmin } = require('../middlewares/auth')
+const { authenticated, authenticatedAdmin, authenticatedLeader } = require('../middlewares/auth')
 const admin = require('./modules/admin')
+const leader = require('./modules/leader')
 
 router.use('/admin', authenticatedAdmin, admin)
+router.use('/leader', authenticatedLeader, leader)
 
 router.get('/signin', userController.getSigninPage)
 
@@ -21,6 +23,7 @@ router.get('/signup', userController.getSignupPage)
 router.post('/signup', userController.postSignup)
 router.get('/logout', userController.postlogout)
 
+router.get('/restaurants/:id', authenticated, restController.getRestaurant)
 router.get('/restaurants', authenticated, restController.getRestaurants)
 router.get('/', (req, res) => res.redirect('/restaurants'))
 

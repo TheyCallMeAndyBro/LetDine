@@ -1,4 +1,4 @@
-
+{{> leader-tabs route='restaurants'}}
 <ul class="nav nav-pills">
   <li class="nav-item">
     <a class="nav-link {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
@@ -29,9 +29,12 @@
         </p>
         <span class="badge bg-secondary">{{this.Category.name}}</span>
         <p class="card-text text-truncate">{{this.description}}</p>
+        <div class="d-flex">
+          <a href="/leader/groups/restaurants/{{this.id}}/{{../userId}}"><button
+              class="btn btn-outline-primary my-sm-0 my-2">CreateGroup</button></a>
+        </div>
       </div>
     </div>
   </div>
   {{/each}}
 </div>
-
