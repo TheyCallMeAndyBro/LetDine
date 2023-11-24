@@ -3,7 +3,7 @@ const { Restaurant, Group, Food } = require('../../models')
 const groupServices = {
   getCrateGroup: (req, cb) => {
     const { restaurantId, userId } = req.params
-    return Group.create({ done: false })
+    return Group.create({ userId })
       .then(group => {
         return cb(null, { group: group.toJSON(), restaurantId, userId })
       })
@@ -88,7 +88,34 @@ const groupServices = {
       .catch(err => cb(err))
   },
   getGroupLists: (req, cb) => {
-    return Group.findAll({ raw: true })
+    return Group.findAll({ where: { userId: req.user.id, done: false }, raw: true })
+      .then(groups => {
+        return cb(null, { groups })
+      })
+      .catch(err => cb(err))
+  },
+  patchGroupLists: (req, cb) => {
+    return Group.findByPk(req.query.groupId)
+      .then(group => {
+        return group.update({ done: !group.done })
+      })
+      .then(updatedGroup => {
+        return cb(null, { groups: updatedGroup })
+      })
+      .catch(err => cb(err))
+  },
+  deleteGroupLists: (req, cb) => {
+    return Group.findByPk(req.query.groupId)
+      .then(group => {
+        return group.destroy()
+      })
+      .then(deletedGroup => {
+        return cb(null, { groups: deletedGroup })
+      })
+      .catch(err => cb(err))
+  },
+  getFinshedGroup: (req, cb) => {
+    return Group.findAll({ where: { done: true }, raw: true })
       .then(groups => {
         return cb(null, { groups })
       })

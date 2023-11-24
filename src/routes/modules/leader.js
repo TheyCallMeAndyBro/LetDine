@@ -12,7 +12,10 @@ router.get('/groups/:groupId/restaurants/:restaurantId/:userId/page', groupContr
 router.put('/groups/:groupId/restaurants/:restaurantId/:userId/page', groupController.putGroupPage)
 router.get('/groups/created_successfully', groupController.getGroup)
 
+router.delete('/grouplists/:groupId', groupController.deleteGroupLists)
+router.patch('/grouplists/:groupId', groupController.patchGroupLists)
 router.get('/grouplists', groupController.getGroupLists)
+router.get('/finshedgroup', groupController.getFinshedGroup)
 
 router.get('/groups/restaurants/:restaurantId/:userId', groupController.getCrateGroup)
 

@@ -56,7 +56,28 @@ const groupController = {
       if (err) return next(err)
       res.render('leader/grouplists', data)
     })
-  }
+  },
+  patchGroupLists: (req, res, next) => {
+    groupServices.patchGroupLists(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_messages', '美食團結案!')
+      res.redirect('/leader/grouplists')
+    })
+  },
+  deleteGroupLists: (req, res, next) => {
+    groupServices.deleteGroupLists(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_messages', '刪除成功!')
+      res.redirect('/leader/grouplists')
+    })
+  },
+  getFinshedGroup: (req, res, next) => {
+    groupServices.getFinshedGroup(req, (err, data) => {
+      if (err) return next(err)
+      res.render('leader/finshedgroup', data)
+    })
+  },
+
 }
 
 module.exports = groupController
