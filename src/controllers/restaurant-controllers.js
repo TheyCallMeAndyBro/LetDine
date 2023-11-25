@@ -7,8 +7,8 @@ const restController = {
   getRestaurant: (req, res, next) => {
     restServices.getRestaurant(req, (err, data) => err ? next(err) : res.render('restaurant', data))
   },
-  getgroupslist: (req, res, next) => {
-    restServices.getgroupslist(req, (err, data) => err ? next(err) : res.render('groupslist', data))
+  getGroupsList: (req, res, next) => {
+    restServices.getGroupsList(req, (err, data) => err ? next(err) : res.render('groupslist', data))
   },
 }
 

@@ -14,17 +14,23 @@ const userController = {
   },
   postSignup: (req, res, next) => {
     userService.postSignup(req, (err, data) => {
-      if(err) next(err)
+      if (err) next(err)
       req.flash('success_messages', '註冊成功')
       req.session.createUser = data
       return res.redirect('/signin')
-    }) 
+    })
   },
-  postlogout: (req,res,next) => {
+  postLogout: (req, res, next) => {
     req.flash('success_messages', '登出成功')
-    req.logout( err => {
-      if(err) return next(err)
+    req.logout(err => {
+      if (err) return next(err)
       return res.redirect('/signin')
+    })
+  },
+  getUserOrder: (req, res, next) => {
+    userService.getUserOrder(req, (err, data) => {
+      if (err) next(err)
+      return res.render('order', data)
     })
   },
 }

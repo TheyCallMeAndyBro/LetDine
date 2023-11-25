@@ -141,7 +141,7 @@ const groupServices = {
       .catch(err => cb(err))
   },
   getFinshedGroups: (req, cb) => {
-    return Group.findAll({ where: { done: true }, raw: true })
+    return Group.findAll({ where: { userId: req.user.id, done: true }, raw: true })
       .then(groups => {
         return cb(null, { groups })
       })

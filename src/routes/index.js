@@ -21,9 +21,11 @@ router.post('/signin', passport.authenticate('local', {
 
 router.get('/signup', userController.getSignupPage)
 router.post('/signup', userController.postSignup)
-router.get('/logout', userController.postlogout)
+router.get('/logout', userController.postLogout)
 
-router.get('/groupslist', authenticated, restController.getgroupslist)
+router.get('/groups/:groupId/:leaderId/:userId/order', userController.getUserOrder)
+
+router.get('/groupslist', authenticated, restController.getGroupsList)
 // router.get('/groupsdetail', authenticated, restController.getgroupsdetail)
 router.get('/restaurants/:id', authenticated, restController.getRestaurant)
 router.get('/restaurants', authenticated, restController.getRestaurants)

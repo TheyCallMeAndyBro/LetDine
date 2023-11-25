@@ -11,8 +11,9 @@ const restServices = {
         ...categoryId ? { categoryId } : {}
       },
       raw: true,
-      nest: true}),
-      Category.findAll({ raw: true })
+      nest: true
+    }),
+    Category.findAll({ raw: true })
     ])
       .then(([restaurants, categories]) => {
         const data = restaurants.map(r => ({
@@ -37,16 +38,16 @@ const restServices = {
       })
       .catch(err => cb(err))
   },
-  getgroupslist: (req, cb) => {
-    return Group.findAll({ 
-      where: { userId: req.user.id, done: false }, 
+  getGroupsList: (req, cb) => {
+    const userId = req.user.id
+    return Group.findAll({
+      where: { done: false },
       raw: true,
-      nest:true,
-      include:[User]
+      nest: true,
+      include: [User]
     })
       .then(groups => {
-        console.log(groups)
-        return cb(null, { groups })
+        return cb(null, { groups, userId })
       })
       .catch(err => cb(err))
   },
