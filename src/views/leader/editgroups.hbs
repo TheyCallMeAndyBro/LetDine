@@ -1,0 +1,35 @@
+<div class="container">
+  <h1 class="text-center">編輯餐點</h1>
+  <div class="row">
+    <div class="col-lg-6 order-lg-1 ml-0">
+      <!-- 左邊的圖片 -->
+      <img class="img-responsive" src="{{group.Restaurant.menu}}"
+        style="width: 600px; height: 700px; transition: opacity 0.5s; opacity: 0;" onload="this.style.opacity=1;">
+    </div>
+    <div class="col-lg-6 order-lg-2">
+      <!-- 右邊的訂購欄位 -->
+      <form action="/leader/groups/{{group.id}}/restaurants/{{group.Restaurant.id}}/{{userId}}/edit?_method=PUT" method="post">
+        <div class="container mt-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Food</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody id="formBody">
+              {{#each foods}}
+              <tr class="form-row">
+                <td><input type="text" class="form-control" name="food[]" value="{{this.name}}"></td>
+                <td><input type="number" class="form-control" name="price[]" value="{{this.price}}"></td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-success">Edit</button>
+          <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

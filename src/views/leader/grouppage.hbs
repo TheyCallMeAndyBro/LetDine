@@ -8,30 +8,32 @@
     </div>
     <div class="col-lg-6 order-lg-2">
       <!-- 右邊的訂購欄位 -->
-      <form action="/leader/groups/{{groupId}}/restaurants/{{restaurant.id}}/{{userId}}/page?_method=PUT" method="post">
-        <div class="container mt-3">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Food</th>
-                <th>Price</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="formBody">
-              {{#each foods}}
-              <tr class="form-row">
-                <td><input type="text" class="form-control" name="food[]" value="{{this.name}}"></td>
-                <td><input type="number" class="form-control" name="price[]" value="{{this.price}}"></td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-
-          <button type="submit" class="btn btn-success">Edit</button>
-
-        </div>
-      </form>
+      <div class="container mt-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="formBody">
+            {{#each foods}}
+            <tr class="form-row">
+              <td><input type="text" class="form-control" name="food[]" value="{{this.name}}"></td>
+              <td><input type="number" class="form-control" name="price[]" value="{{this.price}}"></td>
+              <td>
+                <form action="/leader/groups/{{../groupId}}/restaurants/{{../restaurant.id}}/{{../userId}}/page?_method=DELETE"
+                  method="post">
+                  <input type="hidden" name="foodId" value="{{this.id}}">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

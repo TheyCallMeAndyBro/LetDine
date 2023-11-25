@@ -30,12 +30,13 @@ const leaderServices = {
       .catch(err => cb(err))
   },
   getRestaurant: (req, cb) => {
+    const userId = req.user.id
     return Restaurant.findByPk(req.params.id, {
       include: [Category]
     })
       .then(restaurant => {
         if (!restaurant) throw new Error('Restaurant did not Exist!')
-        return cb(null, { restaurant: restaurant.toJSON() })
+        return cb(null, { restaurant: restaurant.toJSON(), userId })
       })
       .catch(err => cb(err))
   },

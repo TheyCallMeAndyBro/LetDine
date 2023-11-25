@@ -3,7 +3,7 @@ const { Restaurant, Group, Food } = require('../../models')
 const groupServices = {
   getCrateGroup: (req, cb) => {
     const { restaurantId, userId } = req.params
-    return Group.create({ userId })
+    return Group.create({ userId, restaurantId })
       .then(group => {
         return cb(null, { group: group.toJSON(), restaurantId, userId })
       })
@@ -70,7 +70,50 @@ const groupServices = {
       })
       .catch(err => cb(err))
   },
-  putGroupPage: (req, cb) => {
+  deleteGroupPage: (req, cb) => {
+    const { groupId, userId, restaurantId } = req.params
+    const { foodId } = req.body
+    return Food.findByPk(foodId)
+      .then(food => {
+        return food.destroy()
+      })
+      .then(deleteFood => {
+        return cb(null, { food: deleteFood.toJSON(), groupId, userId, restaurantId })
+      })
+      .catch(err => cb(err))
+  },
+  getGroupsList: (req, cb) => {
+    return Group.findAll({ where: { userId: req.user.id, done: false }, raw: true })
+      .then(groups => {
+        return cb(null, { groups })
+      })
+      .catch(err => cb(err))
+  },
+  patchGroupsList: (req, cb) => {
+    return Group.findByPk(req.query.groupId)
+      .then(group => {
+        return group.update({ done: !group.done })
+      })
+      .then(updatedGroup => {
+        return cb(null, { groups: updatedGroup })
+      })
+      .catch(err => cb(err))
+  },
+  getEditGroups: (req, cb) => {
+    const userId = req.user.id
+    return Promise.all([Group.findByPk(req.params.groupId, {
+      include: [Restaurant,],
+      raw: true,
+      nest: true
+    }),
+    Food.findAll({ where: { groupId: req.params.groupId }, raw: true })
+    ])
+      .then(([group, foods]) => {
+        return cb(null, { group, foods, userId })
+      })
+      .catch(err => cb(err))
+  },
+  putEditGroup: (req, cb) => {
     const { groupId, userId, restaurantId } = req.params
     const { food, price } = req.body
     return Food.findAll({ where: { groupId: req.params.groupId } })
@@ -87,24 +130,7 @@ const groupServices = {
       })
       .catch(err => cb(err))
   },
-  getGroupLists: (req, cb) => {
-    return Group.findAll({ where: { userId: req.user.id, done: false }, raw: true })
-      .then(groups => {
-        return cb(null, { groups })
-      })
-      .catch(err => cb(err))
-  },
-  patchGroupLists: (req, cb) => {
-    return Group.findByPk(req.query.groupId)
-      .then(group => {
-        return group.update({ done: !group.done })
-      })
-      .then(updatedGroup => {
-        return cb(null, { groups: updatedGroup })
-      })
-      .catch(err => cb(err))
-  },
-  deleteGroupLists: (req, cb) => {
+  deleteGroupsList: (req, cb) => {
     return Group.findByPk(req.query.groupId)
       .then(group => {
         return group.destroy()
@@ -114,14 +140,13 @@ const groupServices = {
       })
       .catch(err => cb(err))
   },
-  getFinshedGroup: (req, cb) => {
+  getFinshedGroups: (req, cb) => {
     return Group.findAll({ where: { done: true }, raw: true })
       .then(groups => {
         return cb(null, { groups })
       })
       .catch(err => cb(err))
   },
-
 }
 
 module.exports = groupServices

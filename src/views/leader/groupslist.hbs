@@ -1,4 +1,4 @@
-{{> leader-tabs route='GroupLists'}}
+{{> leader-tabs route='groupslist'}}
 
 <br />
 
@@ -19,18 +19,26 @@
 
       <td>
         <button type="button" class="btn btn-link">
-          <a class="btn btn-link link-success" href="/admin/restaurants/{{this.id}}">
+          <a class="btn btn-link link-success" href="/leader/groupslist/{{this.id}}/list">
             Show
           </a>
         </button>
-        <form action="/leader/grouplists/{{this.id}}?groupId={{this.id}}&_method=DELETE" method="POST" style="display: inline;">
+        <button type="button" class="btn btn-link">
+          <a class="btn btn-link link-primary" href="/leader/groups/{{this.id}}/edit">
+            Edit
+          </a>
+        </button>
+        <form action="/leader/groupslist/{{this.id}}?groupId={{this.id}}&_method=DELETE" method="POST"
+          style="display: inline;">
           <button type="submit" class="btn btn-link link-danger"
             onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete
             {{!-- confirm 跳出確定或取消 回傳true/false return回傳這個值給onclick 再看是否要執行此次submit事件 --}}
           </button>
         </form>
-        <form action="/leader/grouplists/{{this.id}}?groupId={{this.id}}&_method=PATCH" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link link-primary" onclick="return confirm(`確定完成 {{ this.name }} 嗎？`)">done
+        <form action="/leader/groupslist/{{this.id}}?groupId={{this.id}}&_method=PATCH" method="POST"
+          style="display: inline;">
+          <button type="submit" class="btn btn-link link-primary"
+            onclick="return confirm(`確定完成 {{ this.name }} 嗎？`)">Done
           </button>
         </form>
       </td>

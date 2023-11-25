@@ -12,13 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Group.belongsTo(models.User, { foreignKey: 'userId' })
       Group.hasMany(models.Food, { foreignKey: 'groupId' })
+      Group.belongsTo(models.Restaurant, { foreignKey: 'restaurantId' })
     }
   }
   Group.init({
     name: DataTypes.STRING,
     note: DataTypes.TEXT,
     done: DataTypes.BOOLEAN,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    restaurantId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Group',

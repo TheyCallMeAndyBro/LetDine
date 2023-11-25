@@ -23,6 +23,8 @@ router.get('/signup', userController.getSignupPage)
 router.post('/signup', userController.postSignup)
 router.get('/logout', userController.postlogout)
 
+router.get('/groupslist', authenticated, restController.getgroupslist)
+// router.get('/groupsdetail', authenticated, restController.getgroupsdetail)
 router.get('/restaurants/:id', authenticated, restController.getRestaurant)
 router.get('/restaurants', authenticated, restController.getRestaurants)
 router.get('/', (req, res) => res.redirect('/restaurants'))

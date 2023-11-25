@@ -1,4 +1,4 @@
-{{> leader-tabs route='FinshedGroup'}}
+{{> user-tabs route='groupslist'}}
 
 <br />
 
@@ -6,23 +6,21 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
+      <th scope="col">GroupLeader</th>
       <th scope="col">GroupName</th>
       <th scope="col">Action</th>
-
     </tr>
   </thead>
   <tbody>
     {{#each groups}}
     <tr>
       <th scope="row">{{this.id}}</th>
+      <td>{{this.User.name}}</td>
       <td>{{this.name}}</td>
 
       <td>
-        <button type="button" class="btn btn-link">
-          <a class="btn btn-link link-success" href="/admin/restaurants/{{this.id}}">
-            Show
-          </a>
-        </button>
+  <a href="/groups/{{this.id}}/{{this.User.id}}"><button class="btn btn-outline-primary my-sm-0 my-2"
+      onclick="return confirm(`確定要加入 {{ this.name }}美食團嗎？`)">Join</button></a>
       </td>
     </tr>
     {{/each}}

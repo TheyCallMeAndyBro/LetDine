@@ -26,7 +26,6 @@ const adminControllers = {
       if (err) return next(err)
       req.flash('success_messages', 'Update successfully updated')
       req.session.updatedRestaurant = data
-      console.log(req.session.updatedRestaurant)
       return res.redirect('/admin/restaurants')
     })
   },

@@ -29,7 +29,7 @@ const groupController = {
   postGroupFood: (req, res, next) => {
     groupServices.postGroupFood(req, (err, data) => {
       if (err) return next(err)
-    const { restaurantId, userId, groupId } = data
+      const { restaurantId, userId, groupId } = data
       res.redirect(`/leader/groups/${groupId}/restaurants/${restaurantId}/${userId}/page`)
     })
   },
@@ -39,42 +39,55 @@ const groupController = {
       res.render('leader/grouppage', data)
     })
   },
-  putGroupPage: (req, res, next) => {
-    groupServices.putGroupPage(req, (err, data) => {
+  deleteGroupPage: (req, res, next) => {
+    groupServices.deleteGroupPage(req, (err, data) => {
       if (err) return next(err)
       const { restaurantId, userId, groupId } = data
-      req.flash('success_messages', '編輯完成')
+      req.flash('success_messages', '刪除完成')
       res.redirect(`/leader/groups/${groupId}/restaurants/${restaurantId}/${userId}/page`)
     })
   },
   getGroup: (req, res, next) => {
     req.flash('success_messages', '開團成功')
-    return res.redirect('/leader/grouplists')
+    return res.redirect('/leader/groupslist')
   },
-  getGroupLists: (req, res, next) => {
-    groupServices.getGroupLists(req, (err, data) => {
+  getGroupsList: (req, res, next) => {
+    groupServices.getGroupsList(req, (err, data) => {
       if (err) return next(err)
-      res.render('leader/grouplists', data)
+      res.render('leader/groupslist', data)
     })
   },
-  patchGroupLists: (req, res, next) => {
-    groupServices.patchGroupLists(req, (err, data) => {
+  patchGroupsList: (req, res, next) => {
+    groupServices.patchGroupsList(req, (err, data) => {
       if (err) return next(err)
       req.flash('success_messages', '美食團結案!')
-      res.redirect('/leader/grouplists')
+      res.redirect('/leader/groupslist')
     })
   },
-  deleteGroupLists: (req, res, next) => {
-    groupServices.deleteGroupLists(req, (err, data) => {
+  getEditGroups: (req, res, next) => {
+    groupServices.getEditGroups(req, (err, data) => {
+      if (err) return next(err)
+      res.render('leader/editgroups', data)
+    })
+  },
+  putEditGroup: (req, res, next) => {
+    groupServices.putEditGroup(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_messages', '編輯完成')
+      res.redirect('/leader/groupslist')
+    })
+  },
+  deleteGroupsList: (req, res, next) => {
+    groupServices.deleteGroupsList(req, (err, data) => {
       if (err) return next(err)
       req.flash('success_messages', '刪除成功!')
-      res.redirect('/leader/grouplists')
+      res.redirect('/leader/groupslist')
     })
   },
-  getFinshedGroup: (req, res, next) => {
-    groupServices.getFinshedGroup(req, (err, data) => {
+  getFinshedGroups: (req, res, next) => {
+    groupServices.getFinshedGroups(req, (err, data) => {
       if (err) return next(err)
-      res.render('leader/finshedgroup', data)
+      res.render('leader/finshedgroups', data)
     })
   },
 

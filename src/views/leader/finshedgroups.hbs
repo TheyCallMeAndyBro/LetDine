@@ -1,0 +1,30 @@
+{{> leader-tabs route='finshedgroups'}}
+
+<br />
+
+<table class="table align-middle">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">GroupName</th>
+      <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each groups}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.name}}</td>
+
+      <td>
+        <button type="button" class="btn btn-link">
+          <a class="btn btn-link link-success" href="/leader/groupslist/{{this.id}}/finshed">
+            Show
+          </a>
+        </button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
