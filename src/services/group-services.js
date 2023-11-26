@@ -90,7 +90,7 @@ const groupServices = {
       .catch(err => cb(err))
   },
   patchGroupsList: (req, cb) => {
-    return Group.findByPk(req.query.groupId)
+    return Group.findByPk(req.params.groupId)
       .then(group => {
         return group.update({ done: !group.done })
       })
@@ -123,7 +123,7 @@ const groupServices = {
           name: food[index],
           price: price[index]
         }))
-        return Food.bulkCreate(updatedFood, { updateOnDuplicate: ['name', 'price'], raw: true })
+        return Food.bulkCreate(updatedFood, { updateOnDuplicate: ['name', 'price'] })
       })
       .then(updateFoods => {
         return cb(null, { food: updateFoods, groupId, userId, restaurantId })
@@ -131,7 +131,7 @@ const groupServices = {
       .catch(err => cb(err))
   },
   deleteGroupsList: (req, cb) => {
-    return Group.findByPk(req.query.groupId)
+    return Group.findByPk(req.params.groupId)
       .then(group => {
         return group.destroy()
       })

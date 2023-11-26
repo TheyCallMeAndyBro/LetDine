@@ -33,5 +33,17 @@ const userController = {
       return res.render('order', data)
     })
   },
+  postUserOrder: (req, res, next) => {
+    userService.postUserOrder(req, (err, data) => {
+      if (err) next(err)
+      return res.redirect('/groupsdetail')
+    })
+  },
+  getGroupsDetail: (req, res, next) => {
+    userService.getGroupsDetail(req, (err, data) => {
+      if (err) next(err)
+      return res.render('groupsdetail', data)
+    })
+  },
 }
 module.exports = userController

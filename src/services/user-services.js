@@ -1,4 +1,4 @@
-const { User, Food, Group, Restaurant } = require('../../models')
+const { User, Food, Group, Restaurant, Order, OrderItem } = require('../../models')
 const bcrypt = require('bcryptjs')
 
 const userService = {
@@ -35,6 +35,39 @@ const userService = {
     ])
       .then(([foods, group]) => {
         return cb(null, { foods, group, leaderId, userId })
+      })
+      .catch(err => cb(err))
+  },
+  postUserOrder: (req, cb) => {
+    const { groupId, userId } = req.params
+    const { foodId, quantity } = req.body
+    return Order.create(
+      { groupId, userId },
+      { raw: true }
+    )
+      .then(order => {
+        const orderItemFoodData = foodId.map((foodId, index) => ({
+          foodId,
+          quantity: quantity[index],
+          orderId: order.id
+        }))
+        return OrderItem.bulkCreate(orderItemFoodData)
+      })
+      .then((orderitem) => {
+        return cb(null, { orderitem })
+      })
+      .catch(err => cb(err))
+  },
+  getGroupsDetail: (req, cb) => {
+    const userId = req.user.id
+    return Order.findAll({
+      where: { userId },
+      include: [Group],
+      raw: true,
+      nest: true
+    })
+      .then(orders => {
+        return cb(null, { orders })
       })
       .catch(err => cb(err))
   },

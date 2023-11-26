@@ -9,31 +9,31 @@
     <div class="col-lg-6 order-lg-2">
       <!-- 右邊的訂購欄位 -->
       <div class="container mt-3">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Food</th>
-              <th>Price</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody id="formBody">
-            {{#each foods}}
-            <tr class="form-row">
-              <td><input type="text" class="form-control" name="food[]" value="{{this.name}}" readonly></td>
-              <td><input type="number" class="form-control" name="price[]" value="{{this.price}}" readonly></td>
-              <td><input type="number" class="form-control" name="quantity[]"></td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        <form action="/groups/{{group.id}}/{{leaderId}}/{{userId}}/created_successfully" method="post">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Food</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody id="formBody">
+              {{#each foods}}
+              <tr class="form-row">
+                <td><input type="text" class="form-control" name="foodId[]" value="{{this.id}}" readonly></td>
+                <td><input type="text" class="form-control" name="food[]" value="{{this.name}}" readonly></td>
+                <td><input type="number" class="form-control" name="price[]" value="{{this.price}}" readonly></td>
+                <td><input type="number" class="form-control" name="quantity[]"></td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          <button class="btn btn-primary mx-2">Create</button>
+          <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
+        </form>
       </div>
     </div>
   </div>
-</div>
-<div class="d-flex justify-content-end">
-  <form action="/groups/{{group.id}}/{{leaderId}}/{{userId}}/created_successfully" method="post">
-    <button class="btn btn-primary mx-3">Create</button>
-  </form>
-    <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
 </div>

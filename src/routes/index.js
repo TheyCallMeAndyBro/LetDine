@@ -17,16 +17,17 @@ router.get('/signin', userController.getSigninPage)
 router.post('/signin', passport.authenticate('local', {
   failureRedirect: '/signin',
   failureFlash: true // 設置可以使用 flash 
-}) ,userController.postSignin)
+}), userController.postSignin)
 
 router.get('/signup', userController.getSignupPage)
 router.post('/signup', userController.postSignup)
 router.get('/logout', userController.postLogout)
 
-router.get('/groups/:groupId/:leaderId/:userId/order', userController.getUserOrder)
-
+router.get('/groups/:groupId/:leaderId/:userId/order', authenticated, userController.getUserOrder)
+router.post('/groups/:groupId/:leaderId/:userId/created_successfully', authenticated, userController.postUserOrder)
+router.get('/groupsdetail', authenticated, userController.getGroupsDetail)
 router.get('/groupslist', authenticated, restController.getGroupsList)
-// router.get('/groupsdetail', authenticated, restController.getgroupsdetail)
+
 router.get('/restaurants/:id', authenticated, restController.getRestaurant)
 router.get('/restaurants', authenticated, restController.getRestaurants)
 router.get('/', (req, res) => res.redirect('/restaurants'))

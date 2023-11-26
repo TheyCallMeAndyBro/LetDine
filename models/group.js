@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Group.belongsTo(models.User, { foreignKey: 'userId' })
       Group.hasMany(models.Food, { foreignKey: 'groupId' })
       Group.belongsTo(models.Restaurant, { foreignKey: 'restaurantId' })
+      Group.hasMany(models.Order, { foreignKey: 'groupId' })
     }
   }
   Group.init({
