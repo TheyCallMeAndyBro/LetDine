@@ -57,6 +57,12 @@ const groupController = {
       res.render('leader/groupslist', data)
     })
   },
+  getShowGroup:(req, res, next) => {
+    groupServices.getShowGroup(req, (err, data) => {
+    if (err) return next(err)
+    res.render('leader/showgroup', data)
+  })
+},
   patchGroupsList: (req, res, next) => {
     groupServices.patchGroupsList(req, (err, data) => {
       if (err) return next(err)
@@ -88,6 +94,12 @@ const groupController = {
     groupServices.getFinshedGroups(req, (err, data) => {
       if (err) return next(err)
       res.render('leader/finshedgroups', data)
+    })
+  },
+  getShowFinshedGroup: (req, res, next) => {
+    groupServices.getShowFinshedGroup(req, (err, data) => {
+      if (err) return next(err)
+      res.render('leader/showfinshedgroup', data)
     })
   },
 

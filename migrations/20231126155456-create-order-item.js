@@ -11,6 +11,12 @@ module.exports = {
       },
       food_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Foods',
+          },
+          key: 'id'
+        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,
@@ -20,6 +26,12 @@ module.exports = {
       },
       order_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Orders',
+          },
+          key: 'id'
+        },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,

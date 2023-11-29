@@ -29,21 +29,42 @@ const userController = {
   },
   getUserOrder: (req, res, next) => {
     userService.getUserOrder(req, (err, data) => {
-      if (err) next(err)
+      if (err) return next(err)
       return res.render('order', data)
     })
   },
   postUserOrder: (req, res, next) => {
     userService.postUserOrder(req, (err, data) => {
-      if (err) next(err)
+      if (err) return next(err)
+      req.flash('success_messages', '點餐成功')
       return res.redirect('/groupsdetail')
     })
   },
   getGroupsDetail: (req, res, next) => {
     userService.getGroupsDetail(req, (err, data) => {
-      if (err) next(err)
+      if (err) return next(err)
       return res.render('groupsdetail', data)
     })
   },
+  getShowGroupsDetail: (req, res, next) => {
+    userService.getShowGroupsDetail(req, (err, data) => {
+      if (err) return next(err)
+      return res.render('showgroupsdetail', data)
+    })
+  },
+  putUserOrder : (req, res, next) => {
+    userService.putUserOrder(req, (err, data) => {
+      if (err) return next(err)
+      req.flash('success_messages', '更改成功')
+      return res.redirect('/groupsdetail')
+    })
+  },
+  deleteGroupsDetail: (req, res, next) => {
+    userService.deleteGroupsDetail(req, (err, data) => {
+    if (err) return next(err)
+    req.flash('success_messages', '退出成功')
+    return res.redirect('/groupsdetail')
+  })
+},
 }
 module.exports = userController

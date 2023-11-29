@@ -31,9 +31,14 @@ const userService = {
       include: [Restaurant],
       raw: true,
       nest: true
+    }),
+    Order.findAll({
+      where: { groupId },
+      raw: true
     })
     ])
-      .then(([foods, group]) => {
+      .then(([foods, group, orders]) => {
+        if (orders.some(orders => orders.userId === Number(userId))) throw new Error(`User already join ${group.name} group!`)
         return cb(null, { foods, group, leaderId, userId })
       })
       .catch(err => cb(err))
@@ -62,12 +67,67 @@ const userService = {
     const userId = req.user.id
     return Order.findAll({
       where: { userId },
-      include: [Group],
+      include: [{
+        model: Group,
+        where: { done: false }
+      }],
       raw: true,
       nest: true
     })
       .then(orders => {
         return cb(null, { orders })
+      })
+      .catch(err => cb(err))
+  },
+  getShowGroupsDetail: (req, cb) => {
+    const { groupId } = req.params
+    const userId = req.user.id
+    return Order.findOne({ where: { userId, groupId } })
+      .then(order => {
+        return OrderItem.findAll({
+          where: { orderId: order.id },
+          include: [Food],
+          raw: true,
+          nest: true
+        })
+      })
+      .then(orderitem => {
+        return cb(null, { orderitem, groupId, userId })
+      })
+      .catch(err => cb(err))
+  },
+  putUserOrder: (req, cb) => {
+    const { foodId, quantity } = req.body
+    const { groupId, userId } = req.params
+    return Order.findOne({ where: { groupId, userId } })
+      .then(order => {
+        return OrderItem.findAll({
+          where: { orderId: order.id },
+          raw: true,
+        })
+      })
+      .then(orderitem => {
+        const updatedQuantity = orderitem.map((orderitem, index) => ({
+          id: orderitem.id,
+          foodId: foodId[index],
+          quantity: quantity[index],
+          orderId: orderitem.orderId
+        }))
+        return OrderItem.bulkCreate(updatedQuantity, { updateOnDuplicate: ['id', 'foodId', 'quantity', 'orderId'] })
+      })
+      .then(updatedorderitem => {
+        return cb(null, { orderitem: updatedorderitem })
+      })
+      .catch(err => cb(err))
+  },
+  deleteGroupsDetail: (req, cb) => {
+    const userId = req.user.id
+    return Order.findOne({ where: { userId } })
+      .then(group => {
+        return group.destroy()
+      })
+      .then(deleteGroup => {
+        return cb(null, { group: deleteGroup })
       })
       .catch(err => cb(err))
   },

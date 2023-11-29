@@ -1,0 +1,33 @@
+<table class="table align-middle">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Food</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each foods }}
+    <tr>
+      <th scope="row">{{this.OrderItems.Order.User.id}}</th>
+      <td>{{this.OrderItems.Order.User.name}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.OrderItems.quantity}}</td>
+      <td>{{this.totalprice}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<br>
+<br>
+<h5 class="thead-dark">Total: {{groupPrice}}</h5>
+
+
+<div class="d-flex justify-content-end">
+  <a class="btn btn-outline-secondary ml-auto" href="/leader/finshedgroups">Back</a>
+</div>

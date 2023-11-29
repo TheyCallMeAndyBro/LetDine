@@ -5,9 +5,10 @@ module.exports = {
     } else {
       req.flash('error_messages', `${err}`)
     }
-    next(err)
 
     res.redirect('back')
+
+    next(err)
 
   },
 }

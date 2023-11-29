@@ -1,4 +1,4 @@
-const { Restaurant, Group, Food } = require('../../models')
+const { Restaurant, Group, Food, User, Order, OrderItem } = require('../../models')
 
 const groupServices = {
   getCrateGroup: (req, cb) => {
@@ -99,6 +99,32 @@ const groupServices = {
       })
       .catch(err => cb(err))
   },
+  getShowGroup: (req, cb) => {
+    const { groupId } = req.params
+    return Food.findAll({
+      where: { groupId },
+      include: [{
+        model: OrderItem,
+        include: [{
+          model: Order,
+          include: [User]
+        }]
+      }],
+      raw: true,
+      nest: true
+    })
+      .then(foods => {
+        const foodsData = foods.map(f => ({
+          ...f,
+          totalprice: f.price * f.OrderItems.quantity
+        }))
+
+        let groupPrice = 0
+        foodsData.forEach(f => groupPrice += f.totalprice)
+        return cb(null, { foods: foodsData, groupPrice })
+      })
+      .catch(err => cb(err))
+  },
   getEditGroups: (req, cb) => {
     const userId = req.user.id
     return Promise.all([Group.findByPk(req.params.groupId, {
@@ -121,9 +147,10 @@ const groupServices = {
         const updatedFood = foods.map((fooddata, index) => ({
           id: fooddata.id,
           name: food[index],
-          price: price[index]
+          price: price[index],
+          groupId
         }))
-        return Food.bulkCreate(updatedFood, { updateOnDuplicate: ['name', 'price'] })
+        return Food.bulkCreate(updatedFood, { updateOnDuplicate: ['id', 'name', 'price', 'groupId'] }) // 用這四個參數當作更新值
       })
       .then(updateFoods => {
         return cb(null, { food: updateFoods, groupId, userId, restaurantId })
@@ -144,6 +171,32 @@ const groupServices = {
     return Group.findAll({ where: { userId: req.user.id, done: true }, raw: true })
       .then(groups => {
         return cb(null, { groups })
+      })
+      .catch(err => cb(err))
+  },
+  getShowFinshedGroup: (req, cb) => {
+    const { groupId } = req.params
+    return Food.findAll({
+      where: { groupId },
+      include: [{
+        model: OrderItem,
+        include: [{
+          model: Order,
+          include: [User]
+        }]
+      }],
+      raw: true,
+      nest: true
+    })
+      .then(foods => {
+        const foodsData = foods.map(f => ({
+          ...f,
+          totalprice: f.price * f.OrderItems.quantity
+        }))
+
+        let groupPrice = 0
+        foodsData.forEach(f => groupPrice += f.totalprice)
+        return cb(null, { foods: foodsData, groupPrice })
       })
       .catch(err => cb(err))
   },
