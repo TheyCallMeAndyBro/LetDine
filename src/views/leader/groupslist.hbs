@@ -11,7 +11,7 @@
 
     </tr>
   </thead>
-  <tbody>
+  <tbody id="groupslist">
     {{#each groups}}
     <tr>
       <th scope="row">{{this.id}}</th>
@@ -28,17 +28,19 @@
             Edit
           </a>
         </button>
-        <form action="/leader/groupslist/{{this.id}}/delete?_method=DELETE" method="POST"
-          style="display: inline;">
+        <form action="/leader/groupslist/{{this.id}}/delete?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-link link-danger"
             onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete
             {{!-- confirm 跳出確定或取消 回傳true/false return回傳這個值給onclick 再看是否要執行此次submit事件 --}}
           </button>
         </form>
-        <form action="/leader/groupslist/{{this.id}}/done?_method=PATCH" method="POST"
-          style="display: inline;">
+        <button id='doneId' type="submit" class="btn btn-link link-primary" data-group-id="{{this.id}}"
+          onclick="return confirm(`確定通知團員餐點已送達嗎？`)">
+          Notify
+        </button>
+        <form action="/leader/groupslist/{{this.id}}/done?_method=PATCH" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-link link-primary"
-            onclick="return confirm(`確定完成 {{ this.name }} 嗎？`)">Done
+            onclick="return confirm(`確定有通知團員美食已到達嗎?\n\n確定完成 {{ this.name }} 嗎？`)">Done
           </button>
         </form>
       </td>
@@ -46,3 +48,32 @@
     {{/each}}
   </tbody>
 </table>
+
+
+<script>
+  // 建立連線
+  const ws = new WebSocket("ws://localhost:3000");
+
+  // 連線
+  ws.addEventListener("open", (event) => {
+    console.log('連線成功')
+
+    groupslist.addEventListener('click', function (event) {
+      //從父元素往下找 找到對應的click 再判斷是否有設置的唯一id 在執行動作
+      const groupslist = document.getElementById('groupslist');
+      const groupId = event.target.getAttribute('data-group-id')
+
+      if (groupId !== null) {
+
+        const donemsg = {
+          context: `已送達`,
+          groupId,
+          arrivedGroupId: 1
+        }
+
+        ws.send(JSON.stringify(donemsg))
+      }
+    })
+  })
+
+</script>

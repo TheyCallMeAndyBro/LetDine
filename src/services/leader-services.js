@@ -1,4 +1,4 @@
-const { Restaurant, Category, } = require('../../models')
+const { Restaurant, Category, Group } = require('../../models')
 
 const leaderServices = {
   getRestaurants: (req, cb) => {
@@ -6,7 +6,7 @@ const leaderServices = {
     const userId = req.user.id
     // 變成數字是因為 id在db資料庫值為integer 然後丟到views也要為number才有辦法比較
     return Promise.all([Restaurant.findAll({
-      include: Category,
+      include: [Category, Group],
       where: {
         ...categoryId ? { categoryId } : {}
       },
@@ -37,6 +37,18 @@ const leaderServices = {
       .then(restaurant => {
         if (!restaurant) throw new Error('Restaurant did not Exist!')
         return cb(null, { restaurant: restaurant.toJSON(), userId })
+      })
+      .catch(err => cb(err))
+  },
+  getChat: (req, cb) => {
+    const userId = req.user.id
+    return Group.findAll({
+      where: { userId, done: false },
+      raw: true
+    })
+      .then(group => {
+        group = group || null
+        return cb(null, { group })
       })
       .catch(err => cb(err))
   },

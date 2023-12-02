@@ -1,4 +1,4 @@
-const { Restaurant, Category, Group, User } = require('../../models')
+const { Restaurant, Category } = require('../../models')
 
 
 const restServices = {
@@ -38,19 +38,7 @@ const restServices = {
       })
       .catch(err => cb(err))
   },
-  getGroupsList: (req, cb) => {
-    const userId = req.user.id
-    return Group.findAll({
-      where: { done: false },
-      raw: true,
-      nest: true,
-      include: [User]
-    })
-      .then(groups => {
-        return cb(null, { groups, userId })
-      })
-      .catch(err => cb(err))
-  },
+
 }
 
 module.exports = restServices

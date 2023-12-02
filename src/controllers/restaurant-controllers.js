@@ -6,10 +6,7 @@ const restController = {
   },
   getRestaurant: (req, res, next) => {
     restServices.getRestaurant(req, (err, data) => err ? next(err) : res.render('restaurant', data))
-  },
-  getGroupsList: (req, res, next) => {
-    restServices.getGroupsList(req, (err, data) => err ? next(err) : res.render('groupslist', data))
-  },
+  }
 }
 
 module.exports = restController

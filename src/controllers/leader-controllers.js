@@ -7,6 +7,9 @@ const leaderControllers = {
   getRestaurant: (req, res, next) => {
     leaderServices.getRestaurant(req, (err, data) => err ? next(err) : res.render('leader/restaurant', data))
   },
+  getChat: (req, res, next) => {
+    leaderServices.getChat(req, (err, data) => err ? next(err) : res.render('leader/chat', data))
+  },
 }
 
 module.exports = leaderControllers

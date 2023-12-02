@@ -21,6 +21,19 @@ const userService = {
       .then(newUser => cb(null, { User: newUser }))
       .catch(err => cb(err))
   },
+  getGroupsList: (req, cb) => {
+    const userId = req.user.id
+    return Group.findAll({
+      where: { done: false },
+      raw: true,
+      nest: true,
+      include: [User]
+    })
+      .then(groups => {
+        return cb(null, { groups, userId })
+      })
+      .catch(err => cb(err))
+  },
   getUserOrder: (req, cb) => {
     const { groupId, leaderId, userId } = req.params
     return Promise.all([Food.findAll({
@@ -128,6 +141,23 @@ const userService = {
       })
       .then(deleteGroup => {
         return cb(null, { group: deleteGroup })
+      })
+      .catch(err => cb(err))
+  },
+  getChat: (req, cb) => {
+    const userId = req.user.id
+    return Order.findAll({
+      where: { userId },
+      include: [{
+        model: Group,
+        where: { done: false }
+      }],
+      nest: true,
+      raw: true
+    })
+      .then(order => {
+        order = order || null
+        return cb(null, { order })
       })
       .catch(err => cb(err))
   },

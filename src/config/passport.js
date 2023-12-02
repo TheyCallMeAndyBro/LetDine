@@ -22,7 +22,14 @@ passport.use(new LocalStrategy(
   }
 ))
 
-passport.serializeUser((user, cb) => cb(null, user.id))
+
+let userId
+
+passport.serializeUser((user, cb) => {
+
+  userId = user.id
+  return cb(null, user.id)
+})
 
 passport.deserializeUser((id, cb) => {
   return User.findByPk(id)
@@ -33,4 +40,8 @@ passport.deserializeUser((id, cb) => {
     .catch(err => cb(err))
 })
 
-module.exports = passport
+
+module.exports = {
+  passport,
+  getuserId: () => userId
+}

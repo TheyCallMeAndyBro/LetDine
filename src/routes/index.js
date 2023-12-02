@@ -4,7 +4,7 @@ const router = express.Router()
 const userController = require('../controllers/user-controllers')
 
 const restController = require('../controllers/restaurant-controllers')
-const passport = require('../config/passport')
+const { passport } = require('../config/passport')
 const { authenticated, authenticatedAdmin, authenticatedLeader } = require('../middlewares/auth')
 const admin = require('./modules/admin')
 const leader = require('./modules/leader')
@@ -29,7 +29,8 @@ router.get('/groupsdetail/:groupId/show', authenticated, userController.getShowG
 router.delete('/groupsdetail/:groupId/delete', authenticated, userController.deleteGroupsDetail)
 router.put('/groupsdetail/:groupId/:userId/edit', authenticated, userController.putUserOrder)
 router.get('/groupsdetail', authenticated, userController.getGroupsDetail)
-router.get('/groupslist', authenticated, restController.getGroupsList)
+router.get('/groupslist', authenticated, userController.getGroupsList)
+router.get('/chat', authenticated, userController.getChat)
 
 router.get('/restaurants/:id', authenticated, restController.getRestaurant)
 router.get('/restaurants', authenticated, restController.getRestaurants)

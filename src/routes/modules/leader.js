@@ -26,9 +26,7 @@ router.get('/finshedgroups', groupController.getFinshedGroups)
 router.get('/groups/restaurants/:restaurantId/:userId', groupController.getCrateGroup)
 
 
-
-
-
+router.get('/chat', leaderController.getChat)
 
 router.get('/restaurants/:id', leaderController.getRestaurant)
 router.get('/restaurants', leaderController.getRestaurants)

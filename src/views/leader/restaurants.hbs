@@ -31,10 +31,15 @@
         </p>
         <span class="badge bg-secondary">{{this.Category.name}}</span>
         <p class="card-text text-truncate">{{this.description}}</p>
+
         <div class="d-flex">
-          <a href="/leader/groups/restaurants/{{this.id}}/{{../userId}}"><button
-              class="btn btn-outline-primary my-sm-0 my-2"
+          {{#ifCond this.Groups.done 0}}
+                    <button class="btn btn-outline-danger my-sm-0 my-2" onclick="alert('美食團已經存在!')">Created</button>
+
+          {{else}}
+          <a href="/leader/groups/restaurants/{{this.id}}/{{../userId}}"><button class="btn btn-outline-primary my-sm-0 my-2"
               onclick="return confirm(`確定要創建 {{ this.name }}美食團嗎？`)">CreateGroup</button></a>
+          {{/ifCond}}
         </div>
       </div>
     </div>

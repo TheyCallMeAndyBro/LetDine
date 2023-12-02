@@ -27,6 +27,12 @@ const userController = {
       return res.redirect('/signin')
     })
   },
+  getGroupsList: (req, res, next) => {
+    userService.getGroupsList(req, (err, data) => {
+      if (err) return next(err)
+      return res.render('groupslist', data)
+    })
+  },
   getUserOrder: (req, res, next) => {
     userService.getUserOrder(req, (err, data) => {
       if (err) return next(err)
@@ -52,7 +58,7 @@ const userController = {
       return res.render('showgroupsdetail', data)
     })
   },
-  putUserOrder : (req, res, next) => {
+  putUserOrder: (req, res, next) => {
     userService.putUserOrder(req, (err, data) => {
       if (err) return next(err)
       req.flash('success_messages', '更改成功')
@@ -61,10 +67,16 @@ const userController = {
   },
   deleteGroupsDetail: (req, res, next) => {
     userService.deleteGroupsDetail(req, (err, data) => {
-    if (err) return next(err)
-    req.flash('success_messages', '退出成功')
-    return res.redirect('/groupsdetail')
-  })
-},
+      if (err) return next(err)
+      req.flash('success_messages', '退出成功')
+      return res.redirect('/groupsdetail')
+    })
+  },
+  getChat: (req, res) => {
+    userService.getChat(req, (err, data) => {
+      if (err) return next(err)
+      return res.render('chat', data)
+    })
+  }
 }
 module.exports = userController

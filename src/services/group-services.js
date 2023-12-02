@@ -4,8 +4,8 @@ const groupServices = {
   getCrateGroup: (req, cb) => {
     const { restaurantId, userId } = req.params
     return Group.create({ userId, restaurantId })
-      .then(group => {
-        return cb(null, { group: group.toJSON(), restaurantId, userId })
+      .then(newgroup => {
+        return cb(null, { group: newgroup.toJSON(), restaurantId, userId })
       })
       .catch(err => cb(err))
   },
