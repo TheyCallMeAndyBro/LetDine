@@ -3,7 +3,12 @@ const { Restaurant, Group, Food, User, Order, OrderItem } = require('../../model
 const groupServices = {
   getCrateGroup: (req, cb) => {
     const { restaurantId, userId } = req.params
-    return Group.create({ userId, restaurantId })
+    return Group.findOne({ where: { userId, restaurantId, done: false } })
+      .then(group => {
+        if (group) throw new Error('Group is already exist!')
+
+        return Group.create({ userId, restaurantId })
+      })
       .then(newgroup => {
         return cb(null, { group: newgroup.toJSON(), restaurantId, userId })
       })

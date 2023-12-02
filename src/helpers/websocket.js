@@ -18,7 +18,7 @@ module.exports = {
             groupId: userorder.map(data => data.groupId), //加入團的id
             leaderGroup: usergroup.map(data => data.id) //leader開的團的id
           }
-          // console.log(ws.user)
+
           const user = {
             context: `${userData.name}已上線`,
             userId: userData.id,
@@ -34,7 +34,7 @@ module.exports = {
         getGroupName(msg.groupId).then(groupname => {
           msg.userName = ws.user.userName
           msg.groupName = groupname
-          console.log(msg)
+
           wss.clients.forEach(client => {
             if (msg.groupId === '0') {
               client.send(JSON.stringify(msg))

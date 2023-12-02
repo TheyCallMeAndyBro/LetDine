@@ -30,6 +30,7 @@
 </div>
 
 <script>
+
   // 建立與ws連線
   const ws = new WebSocket("ws://localhost:3000")
 
@@ -38,7 +39,6 @@
     console.log('連線成功')
 
     setupFormSubmission(ws)
-    
   })
 
   // 監聽message
@@ -46,9 +46,7 @@
 
     const msg = JSON.parse(event.data)
     const chatroomContent = document.getElementById('chatroomContent')
-    console.log(msg)
-    console.log(msg.arrivedGroupId)
-    console.log(typeof msg.arrivedGroupId)
+
     if (msg.userName) {
       chatroomContent.innerHTML += `<p class="p-2 rounded">${msg.userName}<對${msg.groupName}說>:${msg.context}</p>`
     }
@@ -61,7 +59,7 @@
         groupStatus.innerText = `${msg.groupName}已送達...`
         setTimeout(() => {
           groupStatus.remove()
-        }, 3 * 60 * 60 * 1000) // 3小時候消失
+        }, 10000) // 10秒後消失
       }
     }
   })
@@ -81,9 +79,7 @@
       ws.send(JSON.stringify(msg))
 
       messageInput.value = ''
-
     })
-
   }
 
 
