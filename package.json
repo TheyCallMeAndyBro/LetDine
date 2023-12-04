@@ -27,5 +27,8 @@
     "sequelize": "^6.30.0",
     "sequelize-cli": "^6.6.0",
     "ws": "^8.14.2"
+  },
+  "engines": {
+    "node": "^18.15.0"
   }
 }
