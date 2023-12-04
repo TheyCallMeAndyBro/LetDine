@@ -28,7 +28,7 @@ app.use(methodOverride('_method'))
 app.use(session({
   secret: process.env.SESSION_SECRET_KEY,
   resave: false,
-  saveUninitialized: false  // 需要登入時後才會創建session
+  saveUninitialized: true  // 未登入時就先創造個session
 }))
 
 app.use(passport.initialize())
