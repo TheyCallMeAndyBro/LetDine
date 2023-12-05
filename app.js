@@ -21,8 +21,6 @@ app.engine('hbs', handlebars({ extname: '.hbs', helpers: handlebarsHelpers }))
 app.set('view engine', 'hbs')
 app.set('views', './src/views')
 
-app.use('/src/upload', express.static(path.join(__dirname, '/src/upload')))
-
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({

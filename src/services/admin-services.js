@@ -1,5 +1,5 @@
 const { Restaurant, Category, User } = require('../../models')
-const { localFileHandler } = require('../helpers/file-helper')
+const { awsS3FileHandler } = require('../helpers/file-helper')
 
 const adminServices = {
   getRestaurants: (req, cb) => {
@@ -39,7 +39,7 @@ const adminServices = {
 
     if (imageFile.length === 0 || menuFile.length === 0) throw new Error('please upload image and menu!')
 
-    return Promise.all([localFileHandler(imageFile), localFileHandler(menuFile)])
+    return Promise.all([awsS3FileHandler(imageFile), awsS3FileHandler(menuFile)])
       .then(([imageFilePath, menuFilePath]) => {
         return Restaurant.create({
           name, tel, address, openingHours, description, categoryId, image: imageFilePath || null, menu: menuFilePath || null
@@ -71,8 +71,8 @@ const adminServices = {
 
     return Promise.all([
       Restaurant.findByPk(req.params.id),
-      localFileHandler(imageFile),
-      localFileHandler(menuFile)
+      awsS3FileHandler(imageFile),
+      awsS3FileHandler(menuFile)
     ])
       .then(([restaurant, imageFilePath, menuFilePath]) => {
         return restaurant.update({
