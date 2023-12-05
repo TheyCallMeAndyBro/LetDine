@@ -1,27 +1,27 @@
-const multer = require('multer')
-const multerS3 = require('multer-s3')
-const AWS = require('aws-sdk')
+const { S3Client, Upload } = require("@aws-sdk/client-s3")
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
+
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  }
 })
 
-const s3 = new AWS.S3()
-
-const awsS3Upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: 'your-s3-bucket-name',
-    acl: 'public-read', // 設置文件權限
-    metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldname })
-    },
-    key: function (req, file, cb) {
-      cb(null, `${Date.now().toString()}-${file.originalname}`)
+const awsS3Upload = (fieldName) => {
+  return Upload({
+    client: s3Client,
+    params: {
+      Bucket: 'your-s3-bucket-name',
+      Key: function (file) {
+        return `${Date.now().toString()}-${file.originalname}`
+      },
+      ACL: 'public-read',
+      Body: fs.createReadStream(fieldName.path), // 使用 fs.createReadStream
+      ContentType: fieldName.mimetype,
     }
   })
-})
+}
 
 module.exports = awsS3Upload

@@ -1,32 +1,22 @@
-const AWS = require('aws-sdk')
-const fs = require('fs')
+const { PutObjectCommand } = require("@aws-sdk/client-s3")
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-})
-
-const s3 = new AWS.S3()
-
-const awsS3FileHandler = file => {
-  return new Promise((resolve, reject) => {
+const awsS3FileHandler = (file) => {
+  return new Promise(async (resolve, reject) => {
     if (!file) return resolve(null)
 
     const params = {
       Bucket: 'your-s3-bucket-name',
       Key: `${Date.now().toString()}-${file.originalname}`,
       Body: fs.createReadStream(file.path),
-      ACL: 'public-read' // 设置文件权限
+      ACL: 'public-read',
     }
 
-    s3.upload(params, (err, data) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(data.Location)
-      }
-    })
+    try {
+      const data = await s3Client.send(new PutObjectCommand(params))
+      resolve(data.Location)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
