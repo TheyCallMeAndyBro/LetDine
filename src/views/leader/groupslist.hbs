@@ -51,26 +51,31 @@
 
 
 <script>
+
   // 建立連線
-  const ws = new WebSocket("ws://ec2-13-231-126-204.ap-northeast-1.compute.amazonaws.com:3000/");
+  const ws = new WebSocket("ws://ec2-35-78-203-246.ap-northeast-1.compute.amazonaws.com:3000/")
 
   // 連線
   ws.addEventListener("open", (event) => {
-    console.log('連線成功')
+    console.log('websocket用戶端連線成功')
+    const userIdElement = document.getElementById('userId')
+    const userId = userIdElement.getAttribute('data-user-id')
+    const msg = {
+      userId
+    }
+    ws.send(JSON.stringify(msg))
 
     groupslist.addEventListener('click', function (event) {
       //從父元素往下找 找到對應的click 再判斷是否有設置的唯一id 在執行動作
-      const groupslist = document.getElementById('groupslist');
+      const groupslist = document.getElementById('groupslist')
       const groupId = event.target.getAttribute('data-group-id')
 
       if (groupId !== null) {
-
         const donemsg = {
           context: `已送達`,
           groupId,
           arrivedGroupId: 1
         }
-
         ws.send(JSON.stringify(donemsg))
       }
     })

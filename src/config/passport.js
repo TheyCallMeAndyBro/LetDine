@@ -22,12 +22,7 @@ passport.use(new LocalStrategy(
   }
 ))
 
-
-let userId
-
 passport.serializeUser((user, cb) => {
-
-  userId = user.id
   return cb(null, user.id)
 })
 
@@ -43,5 +38,4 @@ passport.deserializeUser((id, cb) => {
 
 module.exports = {
   passport,
-  getuserId: () => userId
 }

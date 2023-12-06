@@ -31,14 +31,24 @@
   <script>
 
     // 建立與ws連線
-    const ws = new WebSocket("ws://ec2-13-231-126-204.ap-northeast-1.compute.amazonaws.com:3000/")
+    const ws = new WebSocket("ws://ec2-35-78-203-246.ap-northeast-1.compute.amazonaws.com:3000/")
 
     // 連線
     ws.addEventListener("open", (event) => {
-      console.log('連線成功')
+      console.log('websocket用戶端連線成功')
+
+      const chatroomContent = document.getElementById('chatroomContent')
+      chatroomContent.innerHTML += `<p class="p-2 rounded">聊天室連線成功!!</p>`
+
+      const userIdElement = document.getElementById('userId')
+      const userId = userIdElement.getAttribute('data-user-id')
+      const msg = {
+        userId
+      }
+
+      ws.send(JSON.stringify(msg))
 
       setupFormSubmission(ws)
-
     })
 
     // 監聽message
@@ -47,12 +57,8 @@
       const msg = JSON.parse(event.data)
       const chatroomContent = document.getElementById('chatroomContent')
 
-      if (msg.userName) {
-        chatroomContent.innerHTML += `<p class="p-2 rounded">${msg.userName}<對${msg.groupName}說>:${msg.context}</p>`
-      }
-      else {
-        chatroomContent.innerHTML += `<p class="p-2 rounded">${msg.context}</p>`
-      }
+      chatroomContent.innerHTML += `<p class="p-2 rounded">${msg.userName}<對${msg.groupName}說>:${msg.context}</p>`
+
       if (msg.arrivedGroupId === 1) {
         const groupStatus = document.getElementById(`groupStatus${msg.groupId}`)
         if (groupStatus) {
