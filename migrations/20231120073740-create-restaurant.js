@@ -25,10 +25,10 @@ module.exports = {
         type: Sequelize.TEXT
       },
       image: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       menu: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       category_id: {
         type: Sequelize.INTEGER,
