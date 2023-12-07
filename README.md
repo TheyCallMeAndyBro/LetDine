@@ -2,11 +2,18 @@
 
 This application is created to facilitate food ordering. Users can create their own dining groups or join others' dining groups. Additionally, they can enter a chat room to chat with everyone or chat with participants in a dining group. Hope you have a pleasant experience!
 
-This website is built with Node.js, Express.js, WebSocket and MySQL. I've leveraged Sequelize, a Node.js ORM (Object Relational Mapping) tool, to interact with the database.
+This website is built with Node.js, Express.js, WebSocket and MySQL. I've leveraged Sequelize, a Node.js ORM (Object Relational Mapping) tool, to interact with the database.The deployment is on AWS EC2, and use S3 for storage and RDS for data management.
 
-![Demo](/READIMG/LetDine-Demo.gif)
+## Architecture Diagram
+
+![Diagram](./READIMG/LetDine-Diagram.png)
+
+## Demo
+
+![Demo](./READIMG/LetDine-Demo.gif)
 
 
+## Link
 [Demo](http://ec2-35-78-203-246.ap-northeast-1.compute.amazonaws.com:3000/)
 
 
@@ -17,7 +24,9 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 - RESTful API
 - CRUD function
 
-## Using in Local  
+Deploy image files to AWS S3 using the code located in the deploy-aws branch at /src/helpers/file-helper.js
+
+## Using in Local
 ## Installing
 
 1.Clone the repository
@@ -25,7 +34,7 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 git clone https://github.com/TheyCallMeAndyBro/LetDine.git
 ```
 
-2.Move to fileasd
+2.Move to file
 ```
 cd LetDine
 ```
@@ -53,7 +62,8 @@ npx sequelize db:seed:all
 ```
 npm start
 ```
-5.Stop
+
+7..Stop
 ```
 ctrl +　ｃ
 ```
