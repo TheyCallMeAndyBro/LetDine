@@ -97,15 +97,22 @@ const userService = {
     const userId = req.user.id
     return Order.findOne({ where: { userId, groupId } })
       .then(order => {
-        return OrderItem.findAll({
-          where: { orderId: order.id },
-          include: [Food],
-          raw: true,
-          nest: true
-        })
+        return Promise.all([
+          OrderItem.findAll({
+            where: { orderId: order.id },
+            include: [Food],
+            raw: true,
+            nest: true
+          }),
+          Group.findByPk(groupId, {
+            include: [Restaurant],
+            raw: true,
+            nest: true
+          })
+        ])
       })
-      .then(orderitem => {
-        return cb(null, { orderitem, groupId, userId })
+      .then(([orderitem, group]) => {
+        return cb(null, { orderitem, group, groupId, userId })
       })
       .catch(err => cb(err))
   },
