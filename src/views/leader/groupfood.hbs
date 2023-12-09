@@ -43,19 +43,21 @@
   })
 
   function addRow() {
-    var formBody = document.getElementById('formBody');
-    var rowTemplate = document.getElementById('rowTemplate');
+    const formBody = document.getElementById('formBody')
+    const rowTemplate = document.getElementById('rowTemplate')
 
     if (formBody.childElementCount < 10) {
-      var newRow = rowTemplate.cloneNode(true);
-      newRow.style.display = ''; // Show the cloned row
-      formBody.appendChild(newRow);
+      const newRow = rowTemplate.cloneNode(true)
+      newRow.style.display = '' // Show the cloned row
+      newRow.querySelector('input[name="food[]"]').required = true
+      newRow.querySelector('input[name="price[]"]').required = true
+      formBody.appendChild(newRow)
     } else {
-      alert('Cannot add more than 10 rows.');
+      alert('Cannot add more than 10 rows.')
     }
   }
 
   function removeRow(button) {
-    button.closest('tr').remove();
+    button.closest('tr').remove()
   }
 </script>
