@@ -4,9 +4,13 @@ This application is created to facilitate food ordering. Group leaders can creat
 
 This website is built with Node.js, Express.js, WebSocket and MySQL. I've leveraged Sequelize, a Node.js ORM (Object Relational Mapping) tool, to interact with the database.The deployment is on AWS EC2, and use S3 for storage and RDS for data management.
 
+
+
 ## Architecture Diagram
 
 ![Diagram](./READMEIMG/LetDine-Diagram.png)
+
+
 
 ## Demo
 
@@ -14,16 +18,19 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 
 
 ## Link
+
 ### [Link](http://ec2-35-78-203-246.ap-northeast-1.compute.amazonaws.com:3000/)
+
 
 
 ## Tech Skills
 
-**Client**: JavaScript, HTML, CSS, Handlebars.js
-**Server**: Node.js, Express.js, RESTful API
-**Database**: MySQL
-**Cloud Service(AWS)**: EC2, S3, RDS
+**Client**: JavaScript, HTML, CSS, Handlebars.js<br>
+**Server**: Node.js, Express.js, RESTful API<br>
+**Database**: MySQL<br>
+**Cloud Service (AWS)**: EC2, S3, RDS<br>
 **Tools**: WebSocket, Git, Passport.js
+
 
 
 ## Features
@@ -34,6 +41,7 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 - Implemented user authentication with the Passport package to prevent unauthorized access to the website via URLs for users who are not logged in
 - Uploaded the project to the cloud, utilizing AWS EC2 to establish the environment, and S3/RDS to store data for sharing with users
 - The root administrator has the capability to perform additions, deletions, and modifications for restaurants, as well as manage user and group leader permissions.
+
 
 
 ## Usage
@@ -78,6 +86,7 @@ ctrl +　ｃ
 ```
 
 Deploy image files to AWS S3 using the code located in the deploy-aws branch at /src/helpers/file-helper.js
+
 
 
 ## Future work
