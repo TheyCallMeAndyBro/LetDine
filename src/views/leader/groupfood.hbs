@@ -50,7 +50,7 @@
       const newRow = rowTemplate.cloneNode(true)
       newRow.style.display = '' // Show the cloned row
       newRow.querySelector('input[name="food[]"]').required = true
-      newRow.querySelector('input[name="price[]"]').required = true;
+      newRow.querySelector('input[name="price[]"]').required = true
       formBody.appendChild(newRow)
     } else {
       alert('Cannot add more than 10 rows.')
