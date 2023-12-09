@@ -1,33 +1,42 @@
 ## Introduce
 
-This application is created to facilitate food ordering. Users can create their own dining groups or join others' dining groups. Additionally, they can enter a chat room to chat with everyone or chat with participants in a dining group. Hope you have a pleasant experience!
+This application is created to facilitate food ordering. Group leaders can create their own dining groups, while users have the option to join existing groups. Additionally, they can enter a chat room to chat with everyone or chat with participants in a dining group. Hope you have a pleasant experience!
 
 This website is built with Node.js, Express.js, WebSocket and MySQL. I've leveraged Sequelize, a Node.js ORM (Object Relational Mapping) tool, to interact with the database.The deployment is on AWS EC2, and use S3 for storage and RDS for data management.
 
 ## Architecture Diagram
 
-![Diagram](./READIMG/LetDine-Diagram.png)
+![Diagram](./READMEIMG/LetDine-Diagram.png)
 
 ## Demo
 
-![Demo](./READIMG/LetDine-Demo.gif)
+![Demo](./READMEIMG/LetDine-Demo.gif)
 
 
 ## Link
 ### [Link](http://ec2-35-78-203-246.ap-northeast-1.compute.amazonaws.com:3000/)
 
 
+## Tech Skills
+
+**Client**: JavaScript, HTML, CSS, Handlebars.js
+**Server**: Node.js, Express.js, RESTful API
+**Database**: MySQL
+**Cloud Service(AWS)**: EC2, S3, RDS
+**Tools**: WebSocket, Git, Passport.js
+
+
 ## Features
 
-- AWS: S3/EC2/RDS
-- WebSocket 
-- RESTful API
-- CRUD function
+- Enhanced the efficiency of the ordering process by the concept of joining food groups, allowing everyone to simultaneously view the menu and place orders in real-time.
+- Established  a chatroom feature, enabling users to receive real-time updates on meal status. Additionally, the chatroom supported instant communication for both individual and group interactions.
+- Adopted the easily recognizable route structure facilitated by the RESTful API style to manage the project with over 40 routes
+- Implemented user authentication with the Passport package to prevent unauthorized access to the website via URLs for users who are not logged in
+- Uploaded the project to the cloud, utilizing AWS EC2 to establish the environment, and S3/RDS to store data for sharing with users
+- The root administrator has the capability to perform additions, deletions, and modifications for restaurants, as well as manage user and group leader permissions.
 
-Deploy image files to AWS S3 using the code located in the deploy-aws branch at /src/helpers/file-helper.js
 
-## Using in Local
-## Installing
+## Usage
 
 1.Clone the repository
 ```
@@ -67,3 +76,14 @@ npm start
 ```
 ctrl +　ｃ
 ```
+
+Deploy image files to AWS S3 using the code located in the deploy-aws branch at /src/helpers/file-helper.js
+
+
+## Future work
+
+- Implement React for client-server, replacing Handlebars
+- Utilize the Google Maps API to discover nearby restaurants
+- Integrate a chatbot using OpenAI for personalized food recommendations
+- Allow users to update their profits
+- Enable users to comment on restaurants
