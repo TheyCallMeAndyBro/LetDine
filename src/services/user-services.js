@@ -141,8 +141,9 @@ const userService = {
       .catch(err => cb(err))
   },
   deleteGroupsDetail: (req, cb) => {
+    const { groupId } = req.params
     const userId = req.user.id
-    return Order.findOne({ where: { userId } })
+    return Order.findOne({ where: { userId, groupId } })
       .then(group => {
         return group.destroy()
       })

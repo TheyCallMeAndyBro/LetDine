@@ -37,5 +37,5 @@ passport.deserializeUser((id, cb) => {
 
 
 module.exports = {
-  passport,
+  passport
 }
