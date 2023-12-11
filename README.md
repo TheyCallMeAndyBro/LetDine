@@ -100,11 +100,11 @@ You can use the provided usernames and passwords to login:
 
 **Without admin permissions:**
 - User1:
- - Email: user1@example.com
- - Password: 12345678
+  - Email: user1@example.com
+  - Password: 12345678
 - User2:
- - Email: user2@example.com
- - Password: 12345678
+  - Email: user2@example.com
+  - Password: 12345678
 
 or you can sign up with your own email and password.
 
