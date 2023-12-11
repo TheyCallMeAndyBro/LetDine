@@ -85,7 +85,27 @@ npm start
 ctrl +　ｃ
 ```
 
-Deploy image files to AWS S3 using the code located in the deploy-aws branch at /src/helpers/file-helper.js
+
+You can use the provided usernames and passwords to login:
+
+With admin permissions:
+Email: root@example.com
+Password: 12345678
+
+Without admin permissions:
+Email: user1@example.com
+Password: 12345678
+
+Email: user2@example.com
+Password: 12345678
+
+or you can sign up with your own email and password.
+
+
+
+**Additional Note:**
+
+Deploy image files to AWS S3 the code located in the deploy-aws branch at /src/helpers/file-helper.js
 
 
 
