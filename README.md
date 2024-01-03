@@ -13,7 +13,7 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 
 ## Database Schema
 
-![Schema](./READMEIMG/LetDine-Diagram.png)
+![Schema](./READMEIMG/database.png)
 
 
 ## Demo
