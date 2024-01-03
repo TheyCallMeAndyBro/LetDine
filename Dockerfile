@@ -10,7 +10,5 @@ RUN npm install
 # 暴露端口
 EXPOSE 3000
 
-RUN npx sequelize db:migrate
-RUN npx sequelize db:seed:all
 
-CMD [ "node", "app.js" ]
+CMD ["npx", "sequelize", "db:migrate", "&&", "npx", "sequelize", "db:seed:all", "&&", "node", "app.js"]
