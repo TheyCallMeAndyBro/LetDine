@@ -11,6 +11,10 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 ![Diagram](./READMEIMG/LetDine-Diagram.png)
 
 
+## Database Schema
+
+![Schema](./READMEIMG/schema.png)
+
 
 ## Demo
 
@@ -80,7 +84,7 @@ npx sequelize db:seed:all
 npm start
 ```
 
-7..Stop
+7.Stop
 ```
 ctrl +　ｃ
 ```
