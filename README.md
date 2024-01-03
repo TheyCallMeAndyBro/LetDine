@@ -11,6 +11,10 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 ![Diagram](./READMEIMG/LetDine-Diagram.png)
 
 
+## Database Schema
+
+![Schema](./READMEIMG/LetDine-Diagram.png)
+
 
 ## Demo
 
@@ -36,7 +40,7 @@ This website is built with Node.js, Express.js, WebSocket and MySQL. I've levera
 ## Features
 
 - Enhanced the efficiency of the ordering process by the concept of joining food groups, allowing everyone to simultaneously view the menu and place orders in real-time.
-- Established  a chatroom feature, enabling users to receive real-time updates on meal status. Additionally, the chatroom supported instant communication for both individual and group interactions.
+- Established a chatroom feature, enabling users to receive real-time updates on meal status. Additionally, the chatroom supported instant communication for both individual and group interactions.
 - Adopted the easily recognizable route structure facilitated by the RESTful API style to manage the project with over 40 routes
 - Implemented user authentication with the Passport package to prevent unauthorized access to the website via URLs for users who are not logged in
 - Uploaded the project to the cloud, utilizing AWS EC2 to establish the environment, and S3/RDS to store data for sharing with users
@@ -80,7 +84,7 @@ npx sequelize db:seed:all
 npm start
 ```
 
-7..Stop
+7.Stop
 ```
 ctrl +　ｃ
 ```
